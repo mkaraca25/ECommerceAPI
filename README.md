@@ -1,5 +1,4 @@
-<p align="center"> 
-#      E Commerce API <br>
+#E Commerce API <br>
 ![Alt text](https://www.argenova.com.tr/uploads/a_blog/image/324727_asp-net-core-nedir-yetenekleri-nelerdir.jpg)<br>
 ONION ARCHITECTURE--> https://www.gencayyildiz.com/blog/nedir-bu-onion-architecture-tam-teferruatli-inceleyelim/ <br>
 

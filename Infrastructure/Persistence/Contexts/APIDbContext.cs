@@ -11,7 +11,7 @@ namespace Persistence.Contexts
     public class APIDbContext : DbContext
     {
         public APIDbContext(DbContextOptions options) : base(options)
-        {}
+        { }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }

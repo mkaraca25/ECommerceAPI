@@ -1,6 +1,6 @@
-﻿using Application.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
-using Persistence.Concretes;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddSingleton<IProductService, ProductService>();
+            services.AddDbContext<APIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
 
         }
     }

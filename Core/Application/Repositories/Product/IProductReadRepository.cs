@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Repositories.Product
+namespace Application.Repositories
 {
-    public interface IProductReadRepository
+    public interface IProductReadRepository : IReadRepository<Product>
     {
+
     }
 }

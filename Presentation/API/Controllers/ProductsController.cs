@@ -19,7 +19,8 @@ namespace API.Controllers
         [HttpGet]
         public async void Get()
         {
-            _productWriteRepository.AddRangeAsync(new() { 
+            await _productWriteRepository.AddRangeAsync(new() 
+            { 
                 new() { Id = Guid.NewGuid(),Name="Product 1",Price=100,CreatedDate=DateTime.UtcNow,Stock=10 },
                 new() { Id = Guid.NewGuid(), Name = "Product 2", Price = 25, CreatedDate = DateTime.UtcNow, Stock = 15 },
                 new() { Id = Guid.NewGuid(), Name = "Product 3", Price = 150, CreatedDate = DateTime.UtcNow, Stock = 20 },

@@ -83,6 +83,9 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 

@@ -14,7 +14,7 @@ namespace Persistence
             get {
                 ConfigurationManager configurationManager = new();
                 configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/API"));
-                configurationManager.AddJsonFile("apsettings.json");
+                configurationManager.AddJsonFile("appsettings.json");
                 return configurationManager.GetConnectionString("PostgreSQL");
             }
         }

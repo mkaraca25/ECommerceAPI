@@ -11,15 +11,33 @@ namespace API.Controllers
     {
         private readonly IProductWriteRepository _productWriteRepository;
         private readonly IProductReadRepository _productReadRepository;
+        private readonly IOrderWriteRepository _orderWriteRepository;
+        private readonly IOrderReadRepository _orderReadRepository;
+        private readonly ICustomerWriteRepository _customerWriteRepository;
 
-        public ProductsController(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository)
+
+        public ProductsController(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository, ICustomerWriteRepository customerWriteRepository)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
+            _orderWriteRepository = orderWriteRepository;
+            _orderReadRepository = orderReadRepository;
+            _customerWriteRepository = customerWriteRepository;
         }
         [HttpGet]
         public async Task Get()
         {
+            /*var customerId=Guid.NewGuid();
+            await _customerWriteRepository.AddAsync(new() { Id = customerId, Name = "Muiidddin" });
+            await _orderWriteRepository.AddAsync(new() { Description = "bla bla bla", Address = "Erzurum", CustomerId = customerId });
+            await _orderWriteRepository.AddAsync(new() { Description = "bla bla bla 2", Address = "Ankara", CustomerId = customerId });
+            await _customerWriteRepository.SaveAsync();*/
+            Order order = await _orderReadRepository.GetByIdAsync("c818ae48-4051-40d7-b671-f2df62f8abf7");
+            order.Address = "Istanbul";
+            await _orderWriteRepository.SaveAsync();
+
+            /*await _productWriteRepository.AddAsync(new() { Name = "C Product", Price = 1.500F, Stock=10,CreatedDate=DateTime.UtcNow});
+            await _productWriteRepository.SaveAsync();*/
 
             /*await _productWriteRepository.AddRangeAsync(new()
             {

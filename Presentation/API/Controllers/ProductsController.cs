@@ -1,4 +1,5 @@
 ﻿using Application.Repositories;
+using Application.RequestParameters;
 using Application.ViewModels.Products;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -27,8 +28,26 @@ namespace API.Controllers
             _customerWriteRepository = customerWriteRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
         {
+            await Task.Delay(1000);
+            var totalCount = _productReadRepository.GetAll(false).Count();
+            var products = _productReadRepository.GetAll(false).Skip(pagination.Page * pagination.Size).Take(pagination.Size).Select(p => new
+            {
+                p.Id,
+                p.Name,
+                p.Stock,
+                p.Price,
+                p.CreatedDate,
+                p.UpdatedDate
+            }).ToList();
+
+            return Ok(new
+            {
+                totalCount,
+                products
+            });
+
             return Ok(_productReadRepository.GetAll(false));
             /*var customerId=Guid.NewGuid();
             await _customerWriteRepository.AddAsync(new() { Id = customerId, Name = "Muiidddin" });

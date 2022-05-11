@@ -17,15 +17,17 @@ namespace API.Controllers
         private readonly IOrderWriteRepository _orderWriteRepository;
         private readonly IOrderReadRepository _orderReadRepository;
         private readonly ICustomerWriteRepository _customerWriteRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public ProductsController(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository, ICustomerWriteRepository customerWriteRepository)
+        public ProductsController(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository, ICustomerWriteRepository customerWriteRepository, IWebHostEnvironment webHostEnvironment)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
             _orderWriteRepository = orderWriteRepository;
             _orderReadRepository = orderReadRepository;
             _customerWriteRepository = customerWriteRepository;
+            _webHostEnvironment= webHostEnvironment;
         }
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] Pagination pagination)
@@ -101,11 +103,31 @@ namespace API.Controllers
 
             return Ok();
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             await _productWriteRepository.RemoveAsync(id);
             await _productWriteRepository.SaveAsync();
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Upload()
+        {
+            string uploadPath = Path.Combine(_webHostEnvironment.WebRootPath,"resource/product-images");
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
+            Random r=new Random();
+            foreach (IFormFile file in Request.Form.Files)
+            {
+                string fullPath = Path.Combine(uploadPath,$"{r.Next()}" +
+                    $"{Path.GetExtension(file.FileName)}");
+                using FileStream fileStream=new(fullPath, FileMode.Create,FileAccess.Write,
+                    FileShare.None,1024*1024,useAsync:false);
+                await file.CopyToAsync(fileStream);
+                await fileStream.FlushAsync();
+            }
             return Ok();
         }
     }

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Persistence.Repositories;
 using Application.Repositories;
+using Persistence.Repositories.File;
+using Application.Repositories.ProductImageFile;
 
 namespace Persistence
 {
@@ -22,6 +24,14 @@ namespace Persistence
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
             services.AddScoped<IProductReadRepository, ProductReadRepository>();
             services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+            services.AddScoped<IFileReadRepository, FileReadRepository>();
+            services.AddScoped<IFileWriteRepository, FileWriteRepository>();
+            services.AddScoped<IProductImageFileReadRepository, ProductImageFileReadRepository>();
+            services.AddScoped<IProductImageFileWriteRepository, ProductImageFileWriteRepository>();
+            services.AddScoped<IInvoiceFileWriteRepository, InvoiceFileWriteRepository>();
+            services.AddScoped<IInvoiceFileReadRepository, InvoiceFileReadRepository>();
+
+
 
         }
     }

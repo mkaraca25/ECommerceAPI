@@ -10,7 +10,8 @@ namespace Domain.Entities.Common
     {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        //Alt nesnede override icindir.
+        virtual public DateTime UpdatedDate { get; set; }
 
     }
 }
